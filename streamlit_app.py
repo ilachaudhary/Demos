@@ -13,8 +13,9 @@ with st.form(key="query_form", clear_on_submit=True):
     submit_button = st.form_submit_button("Ask")
 
 if submit_button and user_input:
+    api_base_url = st.secrets["API_URL"]
     # Call FastAPI endpoint
-    res = requests.get(f"http://127.0.0.1:8000/v1.2/query?text={user_input}")
+    res = requests.get(f"{api_base_url}?text={user_input}")
     response_text = res.text  # plain text
     st.session_state.history.append((user_input, response_text))
 
