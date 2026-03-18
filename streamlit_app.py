@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 
-st.title("Zero Data AI-Finance Demo")
+st.title("Zero Data AI-Finance Demo 1")
 
 # Store conversation history
 if "history" not in st.session_state:

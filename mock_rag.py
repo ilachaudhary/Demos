@@ -6,7 +6,7 @@ model = SentenceTransformer('all-MiniLM-L6-v2')
 
 # Mock corpus for financial AI responses
 mock_corpus = [
-    "Loan approved if credit > 700",
+    "Loan approved if credit > 670",
     "High risk loan flagged",
     "Customer needs additional verification"
 ]
