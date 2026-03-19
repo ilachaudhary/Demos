@@ -1,7 +1,7 @@
 import streamlit as st
 from mock_rag import get_rag_response
 
-st.title("Zero Data AI-Finance Demo 1")
+st.title("Zero Data AI-Finance Demo")
 st.info(
     """
     This prototype simulates an AI system that provides financial insights 
