@@ -1,8 +1,25 @@
 import streamlit as st
-import requests
+from mock_rag import get_rag_response
 
 st.title("Zero Data AI-Finance Demo 1")
+st.info(
+    """
+    This prototype simulates an AI system that provides financial insights 
+    without exposing sensitive data.
+    
+    The demo uses a simplified Retrieval-Augmented Generation (RAG) workflow.
+    """
+)
 
+# Suggested questions
+st.markdown("### Example questions you can try")
+
+st.markdown("""
+• Is this loan high risk?  
+• Does this customer need verification?  
+• What happens if credit score is low?  
+• Can financial data leave the system?  
+""")
 # Store conversation history
 if "history" not in st.session_state:
     st.session_state.history = []
@@ -13,11 +30,9 @@ with st.form(key="query_form", clear_on_submit=True):
     submit_button = st.form_submit_button("Ask")
 
 if submit_button and user_input:
-    api_base_url = st.secrets["API_URL"]
     # Call FastAPI endpoint
-    res = requests.get(f"{api_base_url}?text={user_input}")
-    response_text = res.text  # plain text
-    st.session_state.history.append((user_input, response_text))
+    response = get_rag_response(user_input)
+    st.session_state.history.append((user_input, response))
 
 # Show chat history
 for i, (query, resp) in enumerate(st.session_state.history):
