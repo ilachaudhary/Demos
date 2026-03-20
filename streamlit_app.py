@@ -16,7 +16,7 @@ st.markdown("### Example questions you can try")
 st.markdown("#### For a Loan Applicant:")
 
 st.markdown("""
-* "My credit score is 620 — can I get a loan?"
+* "My credit score is 620. Can I get a loan?"
 * "What is the minimum credit score required for approval?"
 * "What happens if I have existing debt?"
 * "How can I improve my chances of getting approved?"
