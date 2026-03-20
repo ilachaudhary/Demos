@@ -22,6 +22,8 @@ mock_corpus = [
     "Customer financial data restricted within secure systems",
     "Platform must comply with GDPR data protection rules",
     "User queries stored temporarily for audit and monitoring"
+
+    "Additional verification needed"
 ]
 
 # Precompute embeddings
