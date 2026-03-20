@@ -13,7 +13,7 @@ st.info(
 
 # Suggested questions
 st.markdown("### Example questions you can try")
-st.markdown("## For a Loan Applicant:")
+st.markdown("#### For a Loan Applicant:")
 
 st.markdown("""
 * "My credit score is 620 — can I get a loan?"
@@ -21,21 +21,22 @@ st.markdown("""
 * "What happens if I have existing debt?"
 * "How can I improve my chances of getting approved?"
 """)
-st.markdown("## For a Loan Officer:")
+
+st.markdown("#### For a Loan Officer:")
 
 st.markdown("""
-"Is a customer with a debt-to-income ratio above 40% high risk?"
-"What verification is required for a first-time borrower?"
-"What are the conditions for approving a personal loan?"
-"Does a bankruptcy in the last 3 years disqualify an applicant?"
+* "Is a customer with a debt-to-income ratio above 40% high risk?"
+* "What verification is required for a first-time borrower?"
+* "What are the conditions for approving a personal loan?"
+* "Does a bankruptcy in the last 3 years disqualify an applicant?"
 """)
 
-st.markdown("## For a Compliance Officer:")
+st.markdown("#### For a Compliance Officer:")
 
 st.markdown("""
-"Can customer financial data leave the system?"
-"Is this platform GDPR compliant?"
-"What happens to query data after a session ends?"
+* "Can customer financial data leave the system?"
+* "Is this platform GDPR compliant?"
+* "What happens to query data after a session ends?"
 """)
 
 # Store conversation history
