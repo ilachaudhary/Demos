@@ -21,7 +21,7 @@ mock_corpus = [
     # Compliance Officer
     "Customer financial data restricted within secure systems",
     "Platform must comply with GDPR data protection rules",
-    "User queries stored temporarily for audit and monitoring"
+    "User queries stored temporarily for audit and monitoring",
 
     "Additional verification needed"
 ]
