@@ -6,9 +6,22 @@ model = SentenceTransformer('all-MiniLM-L6-v2')
 
 # Mock corpus for financial AI responses
 mock_corpus = [
-    "Loan approved if credit > 670",
-    "High risk loan flagged",
-    "Customer needs additional verification"
+    # Loan Applicant
+    "Loan may be approved with higher interest if credit score is 620",
+    "Minimum credit score typically 620 for loan eligibility",
+    "Existing debt evaluated using debt-to-income ratio",
+    "Improve approval chances by increasing credit score and reducing debt",
+
+    # Loan Officer
+    "DTI above 40% flagged as high risk loan",
+    "First-time borrower requires income and identity verification",
+    "Personal loan approval based on credit score income and DTI",
+    "Recent bankruptcy triggers additional risk review",
+
+    # Compliance Officer
+    "Customer financial data restricted within secure systems",
+    "Platform must comply with GDPR data protection rules",
+    "User queries stored temporarily for audit and monitoring"
 ]
 
 # Precompute embeddings
