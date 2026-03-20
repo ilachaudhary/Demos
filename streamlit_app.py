@@ -13,13 +13,31 @@ st.info(
 
 # Suggested questions
 st.markdown("### Example questions you can try")
+st.markdown("## For a Loan Applicant:")
 
 st.markdown("""
-• Is this loan high risk?  
-• Does this customer need verification?  
-• What happens if credit score is low?  
-• Can financial data leave the system?  
+* "My credit score is 620 — can I get a loan?"
+* "What is the minimum credit score required for approval?"
+* "What happens if I have existing debt?"
+* "How can I improve my chances of getting approved?"
 """)
+st.markdown("## For a Loan Officer:")
+
+st.markdown("""
+"Is a customer with a debt-to-income ratio above 40% high risk?"
+"What verification is required for a first-time borrower?"
+"What are the conditions for approving a personal loan?"
+"Does a bankruptcy in the last 3 years disqualify an applicant?"
+""")
+
+st.markdown("## For a Compliance Officer:")
+
+st.markdown("""
+"Can customer financial data leave the system?"
+"Is this platform GDPR compliant?"
+"What happens to query data after a session ends?"
+""")
+
 # Store conversation history
 if "history" not in st.session_state:
     st.session_state.history = []
