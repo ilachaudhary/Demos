@@ -4,6 +4,9 @@ import chromadb
 import os
 from dotenv import load_dotenv
 from pathlib import Path
+import pkg_resources
+installed = [d.project_name for d in pkg_resources.working_set]
+st.write(installed)
 
 env_path = Path(__file__).parent / ".env"
 load_dotenv(dotenv_path=env_path)
