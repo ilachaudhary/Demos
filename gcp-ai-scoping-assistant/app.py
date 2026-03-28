@@ -4,11 +4,6 @@ import chromadb
 import os
 from dotenv import load_dotenv
 from pathlib import Path
-import importlib.metadata
-packages = [f"{d.metadata['Name']}=={d.version}" 
-            for d in importlib.metadata.distributions()]
-st.write(packages)
-
 
 env_path = Path(__file__).parent / ".env"
 load_dotenv(dotenv_path=env_path)
