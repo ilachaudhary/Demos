@@ -7,16 +7,15 @@ from pathlib import Path
 
 # Load API key
 load_dotenv()
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
 # Gemini embedding function
 def get_embedding(text):
-    result = genai.embed_content(
+    result = client.models.embed_content(
         model="models/embedding-001",
-        content=text,
-        task_type="retrieval_document"
+        contents=text
     )
-    return result['embedding']
+    return result.embeddings[0].values
 
 # Load and chunk docs
 @st.cache_resource
@@ -129,15 +128,18 @@ User question: {user_input}
 """
             
             # Generate response
-            model = genai.GenerativeModel("gemini-2.5-flash")
-            response = model.generate_content(prompt)
             
+            response = client.models.generate_content(
+                model="gemini-2.5-flash",
+                contents=prompt
+            )
             # Display response
             if "outside the scope" in response.text:
                 st.warning(response.text)
             else:
                 st.success("✅ Here are your GCP recommendations:")
                 st.markdown(response.text)
+
     
     else:
         st.warning("Please describe your enterprise AI use case first.")
