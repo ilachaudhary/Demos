@@ -5,9 +5,7 @@ import os
 from dotenv import load_dotenv
 from pathlib import Path
 
-for model in client.models.list():
-    if 'flash' in model.name.lower():
-        st.write(model.name)
+
 # Load API key
 env_path = Path(__file__).parent / ".env"
 load_dotenv(dotenv_path=env_path)
@@ -15,6 +13,9 @@ load_dotenv(dotenv_path=env_path)
 api_key = os.getenv("GEMINI_API_KEY") or st.secrets.get("GEMINI_API_KEY")
 client = genai.Client(api_key=api_key)
 
+for model in client.models.list():
+    if 'flash' in model.name.lower():
+        st.write(model.name)
 
 # Gemini embedding function
 def get_embedding(text):
