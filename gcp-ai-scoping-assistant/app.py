@@ -1,5 +1,5 @@
 import streamlit as st
-import google import genai
+from google import genai
 import chromadb
 import os
 from dotenv import load_dotenv
