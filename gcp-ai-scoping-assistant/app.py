@@ -54,7 +54,7 @@ def load_docs():
     return collection
 
 # App header
-st.title("🚀 GCP AI Scoping Assistant")
+st.title("👩‍💻 GCP AI Scoping Assistant")
 st.subheader("For Enterprise Solutions Architects & IT Decision Makers")
 st.write("Describe your enterprise AI challenge and get instant Google Cloud recommendations.")
 
