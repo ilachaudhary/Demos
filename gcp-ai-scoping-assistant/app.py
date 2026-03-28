@@ -1,5 +1,5 @@
 import streamlit as st
-import google.genai as genai
+import google import genai
 import chromadb
 import os
 from dotenv import load_dotenv
@@ -21,7 +21,7 @@ client = genai.Client(api_key=api_key)
 # Gemini embedding function
 def get_embedding(text):
     result = client.models.embed_content(
-        model="models/embedding-001",
+        model="gemini-embedding-exp-03-07",
         contents=text
     )
     return result.embeddings[0].values
