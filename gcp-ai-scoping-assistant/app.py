@@ -5,11 +5,13 @@ import os
 from dotenv import load_dotenv
 from pathlib import Path
 
-# Load API key
-from pathlib import Path
 env_path = Path(__file__).parent / ".env"
 load_dotenv(dotenv_path=env_path)
-client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
+
+# Works for both local and Streamlit Cloud
+api_key = os.getenv("GEMINI_API_KEY") or st.secrets.get("GEMINI_API_KEY")
+client = genai.Client(api_key=api_key)
+
 
 # Gemini embedding function
 def get_embedding(text):
