@@ -6,7 +6,9 @@ from dotenv import load_dotenv
 from pathlib import Path
 
 # Load API key
-load_dotenv()
+from pathlib import Path
+env_path = Path(__file__).parent / ".env"
+load_dotenv(dotenv_path=env_path)
 client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
 # Gemini embedding function
