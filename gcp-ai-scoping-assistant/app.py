@@ -26,7 +26,8 @@ def get_embedding(text):
 @st.cache_resource
 def load_docs():
     chroma_client = chromadb.Client()
-    collection = chroma_client.create_collection("gcp_docs")
+    collection = chroma_client.get_or_create_collection("gcp_docs")
+
 
     docs_path = Path(__file__).parent / "docs"
     chunks = []
@@ -177,7 +178,7 @@ User question: {user_input}
 
             # Generate response
             response = client.models.generate_content(
-                model="gemini-2.5-flash",
+                model="gemini-1.5-flash-8b",
                 contents=prompt
             )
 
