@@ -24,8 +24,9 @@ for model in client.models.list():
 
 # Gemini embedding function
 def get_embedding(text):
+    def get_embedding(text):
     result = client.models.embed_content(
-        model="gemini-embedding-exp-03-07",
+        model="gemini-embedding-001",
         contents=text
     )
     return result.embeddings[0].values
