@@ -5,12 +5,13 @@ import os
 from dotenv import load_dotenv
 from pathlib import Path
 
+# Load API key
 env_path = Path(__file__).parent / ".env"
 load_dotenv(dotenv_path=env_path)
 
-# Works for both local and Streamlit Cloud
 api_key = os.getenv("GEMINI_API_KEY") or st.secrets.get("GEMINI_API_KEY")
 client = genai.Client(api_key=api_key)
+
 
 # Gemini embedding function
 def get_embedding(text):
@@ -20,36 +21,40 @@ def get_embedding(text):
     )
     return result.embeddings[0].values
 
+
 # Load and chunk docs
 @st.cache_resource
 def load_docs():
-    client = chromadb.Client()
-    collection = client.create_collection("gcp_docs")
-    
-    docs_path = Path("docs")
+    chroma_client = chromadb.Client()
+    collection = chroma_client.create_collection("gcp_docs")
+
+    docs_path = Path(__file__).parent / "docs"
     chunks = []
-    
+    metadatas = []
+
     for file in docs_path.glob("*.txt"):
         text = file.read_text()
         words = text.split()
         chunk_size = 100
         for i in range(0, len(words), chunk_size):
-            chunk = " ".join(words[i:i+chunk_size])
+            chunk = " ".join(words[i:i + chunk_size])
             chunks.append(chunk)
-    
+            metadatas.append({"source": file.name})
+
     if chunks:
         embeddings = [get_embedding(chunk) for chunk in chunks]
         ids = [f"chunk_{i}" for i in range(len(chunks))]
         collection.add(
             documents=chunks,
             embeddings=embeddings,
-            ids=ids
+            ids=ids,
+            metadatas=metadatas
         )
-    
     return collection
 
+
 # App header
-st.title("👩‍💻 GCP AI Scoping Assistant")
+st.title("🚀 GCP AI Scoping Assistant")
 st.subheader("For Enterprise Solutions Architects & IT Decision Makers")
 st.write("Describe your enterprise AI challenge and get instant Google Cloud recommendations.")
 
@@ -61,6 +66,36 @@ st.info("""
 - We need real-time risk scoring for trading transactions
 """)
 
+# Industry and company size selectors
+col1, col2 = st.columns(2)
+
+with col1:
+    industry = st.selectbox(
+        "Select your industry:",
+        [
+            "Select industry...",
+            "Retail & E-commerce",
+            "Banking & Financial Services",
+            "Insurance",
+            "Healthcare",
+            "Manufacturing",
+            "Telecommunications",
+            "Energy & Utilities"
+        ]
+    )
+
+with col2:
+    company_size = st.selectbox(
+        "Select company size:",
+        [
+            "Select size...",
+            "Startup (1-50 employees)",
+            "Mid-size (51-500 employees)",
+            "Large Enterprise (500-5000 employees)",
+            "Fortune 500 (5000+ employees)"
+        ]
+    )
+
 # User input
 user_input = st.text_area(
     "Describe your enterprise AI use case:",
@@ -71,26 +106,34 @@ user_input = st.text_area(
 if st.button("Get GCP Recommendations"):
     if user_input:
         with st.spinner("Searching GCP documentation and generating recommendations..."):
-            
+
+            # Initialize defaults
+            retrieved_chunks = "No documentation context available."
+            source_files = []
+
             try:
                 # Load docs
                 collection = load_docs()
-                
+
                 # Embed user question
                 query_embedding = get_embedding(user_input)
-                
+
                 # Retrieve relevant chunks
                 results = collection.query(
                     query_embeddings=[query_embedding],
                     n_results=5
                 )
-                
+
                 retrieved_chunks = "\n\n".join(results['documents'][0])
-                
+                sources = results['metadatas'][0] if results['metadatas'][0] else []
+                source_files = list(set([
+                    s.get('source', 'GCP Documentation')
+                    for s in sources
+                ]))
+
             except Exception as e:
-                retrieved_chunks = "No documentation context available."
                 st.error(f"RAG error: {e}")
-            
+
             # Build prompt
             prompt = f"""
 You are an expert Google Cloud Solutions Architect 
@@ -127,15 +170,17 @@ Provide a structured recommendation including:
 4. Compliance considerations (GDPR, SOC 2, PCI-DSS)
 5. First step they should take this week
 
+Industry: {industry}
+Company Size: {company_size}
 User question: {user_input}
 """
-            
+
             # Generate response
-            
             response = client.models.generate_content(
                 model="gemini-2.5-flash",
                 contents=prompt
             )
+
             # Display response
             if "outside the scope" in response.text:
                 st.warning(response.text)
@@ -143,6 +188,15 @@ User question: {user_input}
                 st.success("✅ Here are your GCP recommendations:")
                 st.markdown(response.text)
 
-    
+                # Show sources
+                st.divider()
+                st.subheader("📚 Sources Used")
+                if source_files:
+                    for source in source_files:
+                        st.write(f"• {source}")
+                else:
+                    st.write("• GCP Official Documentation")
+                    st.write("• Gemini AI Knowledge Base")
+
     else:
         st.warning("Please describe your enterprise AI use case first.")
