@@ -5,6 +5,17 @@ import os
 from dotenv import load_dotenv
 from pathlib import Path
 
+st.components.v1.html("""
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CT99WFEGDH"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CT99WFEGDH');
+</script>
+""", height=0)
 
 # Load API key
 env_path = Path(__file__).parent / ".env"
