@@ -2,5 +2,5 @@ streamlit
 google-genai
 chromadb
 python-dotenv
-streamlit-ga-tracker
+
 
