@@ -189,6 +189,44 @@ User question: {user_input}
                 st.success("✅ Here are your GCP recommendations:")
                 st.markdown(response.text)
 
+                # Human Feedback Collection (RLHF Layer)
+        st.divider()
+        st.subheader("📊 Was this recommendation helpful?")
+        st.write("Your feedback helps improve future recommendations.")
+        
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            if st.button("👍 Yes, helpful"):
+                import csv
+                import datetime
+                with open("feedback.csv", "a", newline="") as f:
+                    writer = csv.writer(f)
+                    writer.writerow([
+                        datetime.datetime.now(),
+                        industry,
+                        company_size,
+                        user_input[:100],
+                        "positive"
+                    ])
+                st.success("Thank you! Feedback recorded.")
+        
+        with col2:
+            if st.button("👎 Not helpful"):
+                import csv
+                import datetime
+                with open("feedback.csv", "a", newline="") as f:
+                    writer = csv.writer(f)
+                    writer.writerow([
+                        datetime.datetime.now(),
+                        industry,
+                        company_size,
+                        user_input[:100],
+                        "negative"
+                    ])
+                st.warning("Thank you! We'll use this to improve.")
+
+
                 # Show sources
                 st.divider()
                 st.subheader("📚 Sources Used")
