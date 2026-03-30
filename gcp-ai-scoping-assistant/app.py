@@ -5,17 +5,19 @@ import os
 from dotenv import load_dotenv
 from pathlib import Path
 
-st.components.v1.html("""
-<!-- Google tag (gtag.js) -->
+ga_code = """
+<!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-CT99WFEGDH"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-CT99WFEGDH');
 </script>
-""", height=0)
+"""
+
+# Add it invisibly
+st.components.v1.html(ga_code, height=0, scrolling=False)
 
 # Load API key
 env_path = Path(__file__).parent / ".env"
