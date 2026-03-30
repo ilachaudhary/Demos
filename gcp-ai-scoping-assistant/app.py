@@ -4,10 +4,6 @@ import chromadb
 import os
 from dotenv import load_dotenv
 from pathlib import Path
-from streamlit_ga_tracker import track
-
-# GA4 Measurement ID
-track("G-CT99WFEGDH")
 
 st.components.v1.html("""
 <!-- Google tag (gtag.js) -->
