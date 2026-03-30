@@ -178,7 +178,7 @@ User question: {user_input}
 
             # Generate response
             response = client.models.generate_content(
-                model="Gemini 2.5 Flash",
+                model=""gemini-2.5-flash",
                 contents=prompt
             )
 
