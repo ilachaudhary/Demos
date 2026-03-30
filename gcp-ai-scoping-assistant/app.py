@@ -188,51 +188,48 @@ User question: {user_input}
             else:
                 st.success("✅ Here are your GCP recommendations:")
                 st.markdown(response.text)
-
                 # Human Feedback Collection (RLHF Layer)
-        # Human Feedback Collection (RLHF Layer)
-st.divider()
-st.subheader("📊 Was this recommendation helpful?")
-st.write("Your feedback helps improve future recommendations.")
-
-col1, col2 = st.columns(2)
-
-with col1:
-    if st.button("👍 Yes, helpful"):
-        import csv
-        import datetime
-        with open("feedback.csv", "a", newline="") as f:
-            writer = csv.writer(f)
-            writer.writerow([
-                datetime.datetime.now(),
-                industry,
-                company_size,
-                user_input[:100],
-                "positive"
-            ])
-        st.session_state["feedback_given"] = "positive"
-
-with col2:
-    if st.button("👎 Not helpful"):
-        import csv
-        import datetime
-        with open("feedback.csv", "a", newline="") as f:
-            writer = csv.writer(f)
-            writer.writerow([
-                datetime.datetime.now(),
-                industry,
-                company_size,
-                user_input[:100],
-                "negative"
-            ])
-        st.session_state["feedback_given"] = "negative"
-
-# Show confirmation outside the columns
-if st.session_state.get("feedback_given") == "positive":
-    st.success("Thank you! Feedback recorded.")
-elif st.session_state.get("feedback_given") == "negative":
-    st.warning("Thank you! We'll use this to improve.")
-
+                st.divider()
+                st.subheader("📊 Was this recommendation helpful?")
+                st.write("Your feedback helps improve future recommendations.")
+                
+                col1, col2 = st.columns(2)
+                
+                with col1:
+                    if st.button("👍 Yes, helpful"):
+                        import csv
+                        import datetime
+                        with open("feedback.csv", "a", newline="") as f:
+                            writer = csv.writer(f)
+                            writer.writerow([
+                                datetime.datetime.now(),
+                                industry,
+                                company_size,
+                                user_input[:100],
+                                "positive"
+                            ])
+                        st.session_state["feedback_given"] = "positive"
+                
+                with col2:
+                    if st.button("👎 Not helpful"):
+                        import csv
+                        import datetime
+                        with open("feedback.csv", "a", newline="") as f:
+                            writer = csv.writer(f)
+                            writer.writerow([
+                                datetime.datetime.now(),
+                                industry,
+                                company_size,
+                                user_input[:100],
+                                "negative"
+                            ])
+                        st.session_state["feedback_given"] = "negative"
+                
+                # Show confirmation outside the columns
+                if st.session_state.get("feedback_given") == "positive":
+                    st.success("Thank you! Feedback recorded.")
+                elif st.session_state.get("feedback_given") == "negative":
+                    st.warning("Thank you! We'll use this to improve."
 
                 # Show sources
                 st.divider()
