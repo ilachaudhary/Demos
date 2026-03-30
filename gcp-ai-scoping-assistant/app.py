@@ -229,7 +229,7 @@ User question: {user_input}
                 if st.session_state.get("feedback_given") == "positive":
                     st.success("Thank you! Feedback recorded.")
                 elif st.session_state.get("feedback_given") == "negative":
-                    st.warning("Thank you! We'll use this to improve."
+                    st.warning("Thank you! We'll use this to improve.")
 
                 # Show sources
                 st.divider()
